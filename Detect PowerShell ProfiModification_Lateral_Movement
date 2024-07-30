@@ -1,0 +1,21 @@
+title: Detect PowerShell Profile Modification for Lateral Movement
+description: Detects modifications to PowerShell profiles which may indicate lateral movement or persistence.
+status: experimental
+author: Kerim
+references:
+    - https://practicalsecurityanalytics.com/how-to-leverage-powershell-profiles-for-lateral-movement/
+tags:
+    - attack.t1546.013
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains:
+            - "Update-Profile"
+            - "Add-Content -Path"
+            - "Set-ExecutionPolicy"
+    condition: selection
+falsepositives:
+    - Legitimate system administration tasks
+level: high
